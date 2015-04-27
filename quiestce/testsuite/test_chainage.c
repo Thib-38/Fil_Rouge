@@ -33,7 +33,7 @@ main(int argc, char **argv) {
           && (l->queue == s1)
           && (l->nb_suspects == 1));
 
-    struct suspect *s2 = creer_suspect("B", 0);
+    struct suspect *s2 = creer_suspect("B", 1);
     ajouter_suspect(l, s2);
     CHECK("Ajout d'un 2e suspect à la liste",
           (l != NULL)
@@ -42,6 +42,28 @@ main(int argc, char **argv) {
           && (l->nb_suspects == 2)
           && (s1->suiv == s2)
           && (s2->prec == s1));
+
+
+/* TEST POUR DEBUG PERSO */
+struct suspect *s3 = creer_suspect("C", 2);
+ajouter_suspect(l, s3);
+struct suspect *s4 = creer_suspect("D", 3);
+printf("\n On a ajouté A,0 ; B,1 ; C,2 \n");
+affiche_liste_suspects(l);
+printf("\n On essaye de supprimer D,3 ! \n ");
+retirer_suspect(l, s4);
+affiche_liste_suspects(l);
+printf("\n On ajoute D,3 ! \n");
+ajouter_suspect(l, s4);
+affiche_liste_suspects(l);
+printf("\n On essaye de supprimer C,2 ! \n ");
+retirer_suspect(l, s3);
+affiche_liste_suspects(l);
+printf("\n On detruit la liste \n ");
+detruire_liste_suspects(l);
+/*--------------------- */
+
+/* ----- Test prof ----------
 
     retirer_suspect(l, s2);
     CHECK("Retrait d'un suspect de la liste (1)",
@@ -56,6 +78,8 @@ main(int argc, char **argv) {
           && (l->nb_suspects == 0)
           && (l->queue == NULL)
           && (l->tete == NULL));
+
+------------------------------ */
     
     return 0;
 }
