@@ -216,7 +216,7 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 	while (il_faut_recommencer == true)
 	{
 		n = (rand() % 14);
-		if (ensemble_appartient(q,n) == false)	
+		if (ensemble_appartient(q,15-n) == false)	
 		{
 		/* on arrive ici si on a pas déjà fait ce test (ou un test complémentaire). */
 			il_faut_recommencer = false;
