@@ -47,18 +47,19 @@ main(int argc, char **argv) {
 /* TEST POUR DEBUG PERSO */
 struct suspect *s3 = creer_suspect("C", 2);
 ajouter_suspect(l, s3);
-struct suspect *s4 = creer_suspect("D", 3);
+struct suspect *s4 = creer_suspect("D", 0b1000100110000001);
 printf("\n L1 : On a ajouté A,0 ; B,1 ; C,2 \n");
 affiche_liste_suspects(l);
-printf("\n On essaye de supprimer D,3 ! \n ");
+printf("\n On essaye de supprimer D, 0b1000100110000001 ! \n ");
 retirer_suspect(l, s4);
 affiche_liste_suspects(l);
-printf("\n On ajoute D,3 ! \n");
+printf("\n On ajoute D, 0b1000100110000001 ! \n");
 ajouter_suspect(l, s4);
 affiche_liste_suspects(l);
 printf("\n On essaye de supprimer C,2 ! \n ");
 retirer_suspect(l, s3);
 affiche_liste_suspects(l);
+ensemble_afficher("\nOn affiche D : ", (l->queue->attributs));
 printf("\n On detruit la liste \n ");
 detruire_liste_suspects(&l);
 

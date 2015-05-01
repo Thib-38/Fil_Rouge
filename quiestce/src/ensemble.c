@@ -22,7 +22,7 @@ uint16_t ensemble_cardinal(ensemble_t e) {
 }
 
 bool ensemble_appartient(ensemble_t e, uint16_t numero_elt) {
-        if (((e >> numero_elt) & un) == 1)
+        if (((e >> numero_elt) & un) == un)
 		return true;
 	return false;
 }
@@ -50,22 +50,22 @@ void ensemble_retirer_elt(ensemble_t *e, uint16_t numero_elt) {
 void ensemble_afficher(const char *msg, ensemble_t e) {
 	char chaine[17];
 	uint16_t i = 0;
-	uint16_t puissance_de_deux = 1;
+	uint16_t puissance_de_deux = 32768; /* 32768 = 2puissance15 */
 	uint16_t res_dec = 0;
 	for (i=0;i<16;i++)
 	{
 		if (ensemble_appartient(e,15-i) == true)
 		{
 			res_dec = res_dec + puissance_de_deux;
-			puissance_de_deux = 2 * puissance_de_deux;
 			chaine[i]='1';
 		}
 		else
 		{
 			chaine[i]='0';	
 		}
+		puissance_de_deux = puissance_de_deux/2;
 		
 	}
 	chaine[16]='\0';
-	printf("%s %s %d \n",msg,chaine,res_dec);
+	printf("%s Binaire : %s | Decimal : %d \n",msg,chaine,res_dec);
 }

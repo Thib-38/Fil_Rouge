@@ -169,12 +169,14 @@ void affiche_liste_suspects(struct liste_suspects *l) {
 	else
 	{
 		struct suspect *p = l->tete;
-		printf("Etat actuel de la liste : \n ");
+		printf("\nEtat actuel de la liste : \n ");
 		while (p != NULL) {
+                        /* utilisé au DEBBUG
 			printf("NOM = %s", p->nom);
 			printf(" ; ATTRIBUT = %d | ", (p->attributs));
+			*/
+			printf(" %s,", p->nom);
 			p = p->suiv;
 		}
 	}
-	printf(" \n Fini ! \n");
 }
