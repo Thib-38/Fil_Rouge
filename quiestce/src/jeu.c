@@ -61,6 +61,7 @@ struct liste_suspects *initialisation(void) {
 ensemble_t demander_qui_il_faut_trouver(void) {
 /* OK */
 	ensemble_t a_trouver;
+	bool il_faut_recommencer = true;
 	long m;
 	char *c;
 	char ligne_lue[256];
@@ -89,12 +90,16 @@ ensemble_t demander_qui_il_faut_trouver(void) {
 	printf("22 -> Fabien\n");
 	printf("23 -> Maxime\n");
 	printf("24 -> Céline\n");
-saisie: printf("\nChoisissez le numéro de la personne que l'IA doit retrouver.\n");
-	if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
+	while (il_faut_recommencer == true)
 	{
-		m = strtol(ligne_lue, &c, 10);
-		if (m > 24 || m < 1)
-			goto saisie;
+		il_faut_recommencer = false;
+		printf("\nChoisissez le numéro de la personne que l'IA doit retrouver.\n");
+		if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
+		{
+			m = strtol(ligne_lue, &c, 10);
+			if (m > 24 || m < 1)
+				il_faut_recommencer = true;
+		}
 	}
 	if (m == 1)
 		a_trouver = HOMME | COIFFURE_CHAUVE | CHEVEUX_BLANCS | LUNETTES;
@@ -150,6 +155,7 @@ saisie: printf("\nChoisissez le numéro de la personne que l'IA doit retrouver.\
 
 bool la_question(uint16_t n)
 {
+	bool il_faut_recommencer = true;
 	char ligne_lue[256];
 	printf("\n\nVeuillez répondre à la question suivante par [o]ui / [n]on : \n\n");
 	if (n == 0)
@@ -157,7 +163,7 @@ bool la_question(uint16_t n)
 	if (n == 1)
 		printf("Est-ce une femme ?\n");
 	if (n == 2)
-		printf("Est-ce que cette personne a de la moustache ?");
+		printf("Est-ce que cette personne a de la moustache ?\n");
 	if (n == 3)
 		printf("Est-ce que cette personne a une barbe ?\n");
 	if (n == 4)
@@ -180,36 +186,51 @@ bool la_question(uint16_t n)
 		printf("Cette personne porte-t-elle des lunettes ?\n");
 	if (n == 13)
 		printf("Cette personne porte-t-elle un chapeau ?\n");
-lire_reponse:
-	if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
+	while (il_faut_recommencer == true)
 	{
-	        if (ligne_lue[0] == 'o')
-		        return true;
-		else if (ligne_lue[0] == 'n')
-			return false;
-		else
-			goto lire_reponse;
+		if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
+		{
+			if (ligne_lue[0] == 'o')
+			{
+				il_faut_recommencer = false;
+				return true;
+			}
+			else if (ligne_lue[0] == 'n')
+			{
+				il_faut_recommencer = false;
+				return false;
+			}
+		}
 	}
+/* le W-warning demande un return ici, mais au vu de la boucle du dessus, le programme ne va
+   pas arriver à ce niveau */
 }
 
-void questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
+ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 {
 	uint16_t n = 0;
 	uint16_t b = 0;
+	bool il_faut_recommencer = true;
 	struct suspect *temp = (l->tete);
 	struct suspect *(temp_2) = temp;
-poser_autre_question:
-        n = rand() % 14;
-	if (!(ensemble_appartient(q,n)))
+	while (il_faut_recommencer == true)
 	{
-		ensemble_ajouter_elt((&q),13-n+2);
-		b = la_question(n);
-		/*printf("%d",b);*/
-		if (b == 1)
+		n = (rand() % 14);
+		if (ensemble_appartient(q,n) == false)	
 		{
-			while (temp != NULL)
+		/* on arrive ici si on a pas déjà fait ce test (ou un test complémentaire). */
+			il_faut_recommencer = false;
+			b = la_question(n);
+			/* on retourne le résultat concernant le caractère "n" */
+			if (b == true)
 			{
-				if ((ensemble_appartient(ensemble_complementaire((temp->attributs)),13-n+2)))
+				/* le caractère n est présent =>
+				   on met à jour la liste et on
+				   indique qu'il n'est plus nécessaire de poser
+				   les questions complémentaires */
+				while (temp != NULL)
+			{
+				if ((ensemble_appartient(ensemble_complementaire((temp->attributs)),15-n)))
 				{
 					temp_2 = temp->suiv;
 					retirer_suspect(l,temp);
@@ -218,28 +239,101 @@ poser_autre_question:
 				else
 					temp = (temp->suiv);
 			}
-		}
-		else
-		{
-			while (temp != NULL)
-			{	
-				if ((ensemble_appartient((temp->attributs),13-n+2)))
+				/* ------------------------------------------ */
+				/* MISE A JOUR POUR QUESTIONS INTELLIGENTES ! */
+				/* ------------------------------------------ */
+				if (n==1 || n==0)
 				{
-					temp_2 = temp->suiv;
-					retirer_suspect(l,temp);
-					temp = temp_2;
+					ensemble_ajouter_elt((&q),15);
+					ensemble_ajouter_elt((&q),14);
 				}
-				else
-					temp = (temp->suiv);
+				else if (n==2 || n==3)
+				{
+					ensemble_ajouter_elt((&q),13);
+					ensemble_ajouter_elt((&q),12);
+				}
+				else if ((n==4 || n==5) || n==6)
+				{
+					ensemble_ajouter_elt((&q),11);
+					ensemble_ajouter_elt((&q),10);
+					ensemble_ajouter_elt((&q),9);
+				}
+				else if (((n==7 || n==8) || (n==9 || n==10)) || n==11)
+				{
+					ensemble_ajouter_elt((&q),8);
+					ensemble_ajouter_elt((&q),7);
+					ensemble_ajouter_elt((&q),6);
+					ensemble_ajouter_elt((&q),5);
+					ensemble_ajouter_elt((&q),4);
+				}			
+				else if (n==12)
+					ensemble_ajouter_elt((&q),3);
+				else if (n==13)
+					ensemble_ajouter_elt((&q),2);
+				/* ------------------------------------------ */
+				/* --------------- FIN MAJ ------------------ */
+				/* ------------------------------------------ */
 			}
+			else
+			{
+				/* on arrive ici si le caractère n'est pas présent
+				   => on met à jour la liste en retirant ceux 
+				   qui n'ont pas ce caractère; on met à jour la
+				   liste des caractères à tester (si possible) */
+				while (temp != NULL)
+				{	
+					if ((ensemble_appartient((temp->attributs),15-n)))
+					{
+						temp_2 = temp->suiv;
+						retirer_suspect(l,temp);
+						temp = temp_2;
+					}
+					else
+						temp = (temp->suiv);
+				}
+				/* ------------------------------------------ */
+				/* MISE A JOUR POUR QUESTIONS INTELLIGENTES ! */
+				/* ------------------------------------------ */
+				ensemble_ajouter_elt((&q),15-n);
+				/* HOMME ou FEMME */
+				if ((n==0) || (n==1))
+				{
+					ensemble_ajouter_elt((&q),15);
+					ensemble_ajouter_elt((&q),14);
+				}
+				/* CHAUVE, CH. LONGS ou CH. COURTS */
+				else if (n==4)
+				{
+					if (ensemble_appartient(q,5))
+						ensemble_ajouter_elt((&q),15-5);
+					else if (ensemble_appartient(q,6))
+						ensemble_ajouter_elt((&q),15-6);
+				}
+				else if (n==5)
+				{
+					if (ensemble_appartient(q,4))
+						ensemble_ajouter_elt((&q),15-4);
+					else if (ensemble_appartient(q,6))
+						ensemble_ajouter_elt((&q),15-6);
+				}
+				else if (n==6)
+				{
+					if (ensemble_appartient(q,4))
+						ensemble_ajouter_elt((&q),15-4);
+					else if (ensemble_appartient(q,5))
+						ensemble_ajouter_elt((&q),15-5);
+				}
+				/* Les autres test => beaucoup de ligne de code */
+				/* ------------------------------------------ */
+				/* --------------- FIN MAJ ------------------ */
+				/* ------------------------------------------ */
+			}
+			ensemble_afficher("\nEtat actuel de la liste de l'AI :\n ", q);
+			return q;
 		}
-		/*printf("\n n=%d \n",n);*/
-		ensemble_afficher("Etat actuel de la liste de l'AI", q);
-		/* FAIRE DES TEST INTELLIGENTS ie si n=1 alors ajouter n=2, etc ... */ 
-		return;
 	}
-	else
-		goto poser_autre_question;
+/* le W-warning demande un return ici, mais au vu de la boucle du dessus, le programme ne va
+   pas arriver à ce niveau */
 }
 
 
@@ -250,8 +344,11 @@ int main(void) {
 	ensemble_t cible = demander_qui_il_faut_trouver();
 	while ((liste->nb_suspects) > 1)
 	{
+		/* on indique à l'utilisateur les suspects restants */
 		affiche_liste_suspects(liste);
-		questionner_joueur_et_maj(liste,questions_posees);
+		/* on pose une question à l'utilisateur et on met à
+		   jour la liste de question à poser en meme temps */ 
+		questions_posees = questionner_joueur_et_maj(liste,questions_posees);
 	}
 	if ((liste->nb_suspects) != 1)
 		printf("\n\nVous avez menti\n\n");
@@ -259,6 +356,7 @@ int main(void) {
 		printf("\n\nVous avez menti\n\n");
 	else
 		printf("\n\nLa personne que l'IA a trouvée est : %s\n\n",(liste->tete)->nom);
+	/* on libère la mémoire demandée manuellement */
 	detruire_liste_suspects(&liste);
         return 0;
 }
