@@ -10,9 +10,8 @@ struct suspect *creer_suspect(const char *name, ensemble_t attributs) {
 	}
 	else
 	{
-		char *copie_pointeur_de_nom = strdup(name);
 		struct suspect *le_suspect = malloc(sizeof(struct suspect));
-		le_suspect->nom = copie_pointeur_de_nom;
+		le_suspect->nom = name ;
 		le_suspect->attributs = attributs;
 		le_suspect->suiv = NULL;
 		le_suspect->prec = NULL;
@@ -30,11 +29,13 @@ struct liste_suspects *creer_liste_suspects(void) {
 }
 
 void detruire_liste_suspects(struct liste_suspects **l) {
-/* KOOOOOO */
+/* OK */
 	while((*l)->nb_suspects != 0)
+	{
 		retirer_suspect(*l,(*l)->tete);
+	}
 	free(*l);
-	free(l);
+	*l = NULL;
 }
 
 void ajouter_suspect(struct liste_suspects *liste, struct suspect *suspect) {
@@ -62,11 +63,11 @@ void ajouter_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 	else
 	{
 		liste-> nb_suspects += 1;
-		struct suspect *temp = liste->queue;
+		struct suspect *p = liste->queue;
 		(liste->queue)->suiv = suspect;
 		liste->queue = suspect;
 		(liste->queue)->suiv = NULL;
-		(liste->queue)->prec = temp;
+		(liste->queue)->prec = p;
 	}
 }
 
@@ -111,10 +112,10 @@ void retirer_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 		}
 		else
 		{
-			struct suspect *temp = liste->tete->suiv;
+			struct suspect *p = liste->tete->suiv;
 			suspect->suiv = NULL;
 			suspect->prec = NULL;
-			liste->tete = temp;
+			liste->tete = p;
 			liste->tete->prec = NULL;
 			free(suspect);
 			liste->nb_suspects -= 1;
@@ -142,10 +143,10 @@ void retirer_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 		/* on le cherche : si on le trouve on le supprime, sinon rien */
 		else
 		{
-			struct suspect *temp = (liste->tete)->suiv;
-			while (temp != NULL)
+			struct suspect *p = (liste->tete)->suiv;
+			while (p != NULL)
 			{
-				if (temp == suspect)
+				if (p == suspect)
 				{
 					(suspect->prec)->suiv = suspect->suiv;
 					(suspect->suiv)->prec = suspect->prec;
@@ -155,7 +156,7 @@ void retirer_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 				}
 				else
 				{
-					temp = temp->suiv;
+					p = p->suiv;
 				}
 			}
 		}
@@ -163,12 +164,17 @@ void retirer_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 }
 
 void affiche_liste_suspects(struct liste_suspects *l) {
-	struct suspect *temp = l->tete;
-	printf("Affichage de la liste: \n ");
-	while (temp != NULL) {
-		printf("NOM = %s", temp->nom);
-		printf(" ; ATTRIBUT = %d | ", (temp->attributs));
-		temp = temp->suiv;
+	if (l==NULL)
+		printf("Liste vide !");
+	else
+	{
+		struct suspect *p = l->tete;
+		printf("Etat actuel de la liste : \n ");
+		while (p != NULL) {
+			printf("NOM = %s", p->nom);
+			printf(" ; ATTRIBUT = %d | ", (p->attributs));
+			p = p->suiv;
+		}
 	}
-	printf("\n");
+	printf(" \n Fini ! \n");
 }
