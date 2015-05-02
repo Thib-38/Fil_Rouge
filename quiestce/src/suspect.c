@@ -3,7 +3,6 @@
 #include <string.h>
 
 struct suspect *creer_suspect(const char *name, ensemble_t attributs) {
-/*OK*/
         if (name == NULL)
 	{
 		return NULL;
@@ -20,7 +19,6 @@ struct suspect *creer_suspect(const char *name, ensemble_t attributs) {
 }
 
 struct liste_suspects *creer_liste_suspects(void) {
-/*OK*/
         struct liste_suspects *liste_vide = malloc(sizeof(struct liste_suspects));
 	liste_vide->nb_suspects = 0;
 	liste_vide->tete = NULL;
@@ -29,7 +27,6 @@ struct liste_suspects *creer_liste_suspects(void) {
 }
 
 void detruire_liste_suspects(struct liste_suspects **l) {
-/* OK */
 	while((*l)->nb_suspects != 0)
 	{
 		retirer_suspect(*l,(*l)->tete);
@@ -39,7 +36,6 @@ void detruire_liste_suspects(struct liste_suspects **l) {
 }
 
 void ajouter_suspect(struct liste_suspects *liste, struct suspect *suspect) {
-/* Correcte => vérifiée avec DDD */
 /* RQ : on ne vérifie pas que suspect est déjà présent avant de l'insérer */
 	if (liste->nb_suspects == 0)
 	{
@@ -72,8 +68,6 @@ void ajouter_suspect(struct liste_suspects *liste, struct suspect *suspect) {
 }
 
 void retirer_suspect(struct liste_suspects *liste, struct suspect *suspect) {
-	/* Verifiée avec DDD */
-	/* ----------------- */
 	/* si suspect == NULL alors on n'a pas de suspect à retirer */
 	if (suspect == NULL)
 		return;
@@ -169,14 +163,16 @@ void affiche_liste_suspects(struct liste_suspects *l) {
 	else
 	{
 		struct suspect *p = l->tete;
-		printf("\nEtat actuel de la liste : \n ");
+		printf("\n\n           ###############################################\n");
+		printf("           #####                                     #####\n");
+		printf("           #####       Etat actuel de la liste       #####\n");
+		printf("           #####                                     #####\n\n");
 		while (p != NULL) {
-                        /* utilisé au DEBBUG
-			printf("NOM = %s", p->nom);
-			printf(" ; ATTRIBUT = %d | ", (p->attributs));
-			*/
-			printf(" %s,", p->nom);
+			printf("%s   ", p->nom);
 			p = p->suiv;
 		}
+		printf("\n\n           #####                                     #####\n");
+		printf("           #####                                     #####\n");
+		printf("           ###############################################\n\n");
 	}
 }

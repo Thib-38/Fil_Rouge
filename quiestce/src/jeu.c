@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <time.h>
 
+
+
+
 struct liste_suspects *initialisation(void) {
-/* OK */
         struct liste_suspects *liste = creer_liste_suspects();
 	ensemble_t attributs;
         attributs = HOMME | COIFFURE_CHAUVE | CHEVEUX_BLANCS | LUNETTES;
@@ -58,42 +60,54 @@ struct liste_suspects *initialisation(void) {
 	return liste;
 }
 
+
+
+
+
+
 ensemble_t demander_qui_il_faut_trouver(void) {
-/* OK */
 	ensemble_t a_trouver;
 	bool il_faut_recommencer = true;
 	long m;
 	char *c;
 	char ligne_lue[256];
-	printf("\nListe des personnes en jeu :\n\n");
-	printf("1 -> André\n");
-	printf("2 -> Patricia\n");
-	printf("3 -> Cédric\n");
-	printf("4 -> Philippe\n");
-	printf("5 -> Baptiste\n");
-	printf("6 -> Pierre\n");
-	printf("7 -> Jean-Louis\n");
-	printf("8 -> Sébastien\n");
-	printf("9 -> Martin\n");
-	printf("10 -> François\n");
-	printf("11 -> Olivier\n");
-	printf("12 -> Elodie\n");
-	printf("13 -> Robert\n");
-	printf("14 -> Nicolas\n");
-	printf("15 -> Victor\n");
-	printf("16 -> Carole\n");
-	printf("17 -> Luc\n");
-	printf("18 -> Georges\n");
-	printf("19 -> Mélanie\n");
-	printf("20 -> Simon\n");
-	printf("21 -> Thierry\n");
-	printf("22 -> Fabien\n");
-	printf("23 -> Maxime\n");
-	printf("24 -> Céline\n");
+	printf("\n\n\n");
+	printf("                    ################################ \n");
+	printf("                   ### Liste des personnes en jeu ###\n");
+	printf("                   ##################################\n");
+	printf("                   ###                            ###\n");
+	printf("                   ###        1 -> André          ###\n");
+	printf("                   ###        2 -> Patricia       ###\n");
+	printf("                   ###        3 -> Cédric         ###\n");
+	printf("                   ###        4 -> Philippe       ###\n");
+	printf("                   ###        5 -> Baptiste       ###\n");
+	printf("                   ###        6 -> Pierre         ###\n");
+	printf("                   ###        7 -> Jean-Louis     ###\n");
+	printf("                   ###        8 -> Sébastien      ###\n");
+	printf("                   ###        9 -> Martin         ###\n");
+	printf("                   ###        10 -> François      ###\n");
+	printf("                   ###        11 -> Olivier       ###\n");
+	printf("                   ###        12 -> Elodie        ###\n");
+	printf("                   ###        13 -> Robert        ###\n");
+	printf("                   ###        14 -> Nicolas       ###\n");
+	printf("                   ###        15 -> Victor        ###\n");
+	printf("                   ###        16 -> Carole        ###\n");
+	printf("                   ###        17 -> Luc           ###\n");
+	printf("                   ###        18 -> Georges       ###\n");
+	printf("                   ###        19 -> Mélanie       ###\n");
+	printf("                   ###        20 -> Simon         ###\n");
+	printf("                   ###        21 -> Thierry       ###\n");
+	printf("                   ###        22 -> Fabien        ###\n");
+	printf("                   ###        23 -> Maxime        ###\n");
+	printf("                   ###        24 -> Céline        ###\n");
+	printf("                   ###                            ###\n");
+	printf("                   ##################################\n");
+	printf("                    ################################ \n\n");
 	while (il_faut_recommencer == true)
 	{
 		il_faut_recommencer = false;
-		printf("\nChoisissez le numéro de la personne que l'IA doit retrouver.\n");
+		printf("\n                  Choisissez le numéro de la personne");
+		printf("\n                  que l'IA doit retrouver :    ");
 		if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
 		{
 			m = strtol(ligne_lue, &c, 10);
@@ -153,64 +167,75 @@ ensemble_t demander_qui_il_faut_trouver(void) {
 }
 
 
+
+
+
+
+
 bool la_question(uint16_t n)
 {
-	bool il_faut_recommencer = true;
 	char ligne_lue[256];
-	printf("\n\nVeuillez répondre à la question suivante par [o]ui / [n]on : \n\n");
+	printf("\n\n   Veuillez répondre à la question suivante par [o]ui / [n]on : \n");
 	if (n == 0)
-		printf("Est-ce un homme ?\n");
+		printf("\n           Est-ce un homme ?  -->  ");
 	if (n == 1)
-		printf("Est-ce une femme ?\n");
+		printf("\n           Est-ce une femme ?  -->  ");
 	if (n == 2)
-		printf("Est-ce que cette personne a de la moustache ?\n");
+		printf("\n           Est-ce que cette personne a de la moustache ?  -->  ");
 	if (n == 3)
-		printf("Est-ce que cette personne a une barbe ?\n");
+		printf("\n           Est-ce que cette personne a une barbe ?  -->  ");
 	if (n == 4)
-		printf("Cette personne est-elle chauve ?\n");
+		printf("\n           Cette personne est-elle chauve ?  -->  ");
 	if (n == 5)
-		printf("Cette personne a-t-elle les cheveux longs ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux longs ?  -->  ");
 	if (n == 6)
-		printf("Cette personne a-t-elle les cheveux courts ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux courts ?  -->  ");
 	if (n == 7)
-		printf("Cette personne a-t-elle les cheveux noirs ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux noirs ?  -->  ");
 	if (n == 8)
-		printf("Cette personne a-t-elle les cheveux chatains ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux chatains ?  -->  ");
 	if (n == 9)
-		printf("Cette personne a-t-elle les cheveux blancs ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux blancs ?  -->  ");
 	if (n == 10)
-		printf("Cette personne a-t-elle les cheveux roux ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux roux ?  -->  ");
 	if (n == 11)
-		printf("Cette personne a-t-elle les cheveux blonds ?\n");
+		printf("\n           Cette personne a-t-elle les cheveux blonds ?  -->  ");
 	if (n == 12)
-		printf("Cette personne porte-t-elle des lunettes ?\n");
+		printf("\n           Cette personne porte-t-elle des lunettes ?  -->  ");
 	if (n == 13)
-		printf("Cette personne porte-t-elle un chapeau ?\n");
-	while (il_faut_recommencer == true)
+		printf("\n           Cette personne porte-t-elle un chapeau ?  -->  ");
+	while (true)
 	{
 		if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
 		{
 			if (ligne_lue[0] == 'o')
-			{
-				il_faut_recommencer = false;
 				return true;
-			}
 			else if (ligne_lue[0] == 'n')
-			{
-				il_faut_recommencer = false;
 				return false;
-			}
+			printf("           BAD INPUT    (attention à bien écrire en minuscule)\n");
+			printf("                            ");
 		}
 	}
 /* le W-warning demande un return ici, mais au vu de la boucle du dessus, le programme ne va
-   pas arriver à ce niveau */
+   pas arriver à ce niveau sans etre passé par un return. */
 }
 
-ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
+
+
+
+
+
+
+
+ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q, bool v)
 {
 	uint16_t n = 0;
 	uint16_t b = 0;
 	bool il_faut_recommencer = true;
+	/* ce boolean permet d'éviter 
+	   des questions redondantes/inutiles
+	   si le n tiré aléatoirement correspond
+	   à une question dejà posée et/ou inutile */
 	struct suspect *temp = (l->tete);
 	struct suspect *(temp_2) = temp;
 	while (il_faut_recommencer == true)
@@ -218,16 +243,18 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 		n = (rand() % 14);
 		if (ensemble_appartient(q,15-n) == false)	
 		{
-		/* on arrive ici si on a pas déjà fait ce test (ou un test complémentaire). */
+		/* on arrive ici si on a pas déjà fait ce test 
+		   (ou un test complémentaire qui a permis de
+		   déterminer que ce test ci n'est plus utile). */
 			il_faut_recommencer = false;
 			b = la_question(n);
 			/* on retourne le résultat concernant le caractère "n" */
 			if (b == true)
 			{
-				/* le caractère n est présent =>
-				   on met à jour la liste et on
-				   indique qu'il n'est plus nécessaire de poser
-				   les questions complémentaires */
+				/* le trait physique 'n' est présent =>
+				   on met à jour la liste, puis on
+				   indique qu'il n'est plus nécessaire de
+				   poser les questions complémentaires */
 				while (temp != NULL)
 			{
 				if ((ensemble_appartient(ensemble_complementaire((temp->attributs)),15-n)))
@@ -276,10 +303,10 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 			}
 			else
 			{
-				/* on arrive ici si le caractère n'est pas présent
-				   => on met à jour la liste en retirant ceux 
+				/* on arrive ici si le trait physique n'est pas présent
+				   => on met à jour la liste en retirant les personnes 
 				   qui n'ont pas ce caractère; on met à jour la
-				   liste des caractères à tester (si possible) */
+				   liste des traits physiques à tester (si possible) */
 				while (temp != NULL)
 				{	
 					if ((ensemble_appartient((temp->attributs),15-n)))
@@ -295,7 +322,7 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 				/* MISE A JOUR POUR QUESTIONS INTELLIGENTES ! */
 				/* ------------------------------------------ */
 				ensemble_ajouter_elt((&q),15-n);
-				/* HOMME ou FEMME */
+				/* HOMME ou FEMME : on est l'un ou l'autre !*/
 				if ((n==0) || (n==1))
 				{
 					ensemble_ajouter_elt((&q),15);
@@ -323,12 +350,23 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 					else if (ensemble_appartient(q,5))
 						ensemble_ajouter_elt((&q),15-5);
 				}
-				/* Les autres test => beaucoup de ligne de code */
+				/* Pour les autres traits physique, la
+				   disjonction des cas impose plus de calcul
+				   /tests que de repasser une fois dans la
+				   boucle */
 				/* ------------------------------------------ */
 				/* --------------- FIN MAJ ------------------ */
 				/* ------------------------------------------ */
 			}
-			ensemble_afficher("\nEtat actuel de la liste de l'AI :\n ", q);
+			if (v == true)
+			{
+				printf("\n     //////////////////////////////////////////////////////////");
+				printf("\n     ///                                                    ///");
+				ensemble_afficher("\n     ///         Etat actuel de la liste de l'I.A           ///\n", q);
+				printf("\n     ///                                                    ///");
+
+				printf("\n     //////////////////////////////////////////////////////////");
+			}			
 			return q;
 		}
 	}
@@ -337,26 +375,96 @@ ensemble_t questionner_joueur_et_maj(struct liste_suspects *l, ensemble_t q)
 }
 
 
+
+
+
+
+
+void trahison(void) {
+	printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n        ______________________________________________________\n");
+		printf("        |                                                    |\n");
+		printf("        |                                                    |\n");
+		printf("        |                VOUS AVEZ MENTI !!!                 |\n");
+		printf("        |                                                    |\n");
+		printf("        |      COMMENT AVEZ-VOUS PU ME FAIRE CA ?   :'(      |\n");
+		printf("        |                                                    |\n");
+		printf("        |                                                    |\n");
+		printf("        |____________________________________________________|\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+
+
+
+
+
+
 int main(void) {
 	srand(time(NULL));
+	printf("\n\n\n\n\n             ///////////////////////////////////////////////\n");
+	printf("             ///   BIENVENUE DANS LE JEU DU QUI-EST-CE   ///\n");
+	printf("             ///////////////////////////////////////////////\n\n");
 	struct liste_suspects *liste = initialisation();
 	ensemble_t questions_posees = ensemble_vide();
 	ensemble_t cible = demander_qui_il_faut_trouver();
+	bool lire_verbose = true;
+	bool v;
+	char ligne_lue[256];
+	printf("\n\n           <----------------------------------------------->\n");
+	printf("\n                  Voulez-vous voir le raisonnement int-\n");
+	printf("                     -ermediaire de l'ordinateur ?\n");
+	printf("\n                             [o]ui / [n]on \n");
+	printf("\n           <----------------------------------------------->\n");
+	printf("\n                                  ");
+	while (lire_verbose == true)
+	{
+		if(fgets(ligne_lue, sizeof ligne_lue, stdin) != NULL)
+		{
+			if (ligne_lue[0] == 'o')
+			{
+			        lire_verbose = false;
+				v = true;
+			}
+			else if (ligne_lue[0] == 'n')
+			{
+				lire_verbose = false;
+				v = false;
+			}
+			else
+			{
+				printf("           BAD INPUT    (attention à bien écrire en minuscule)\n");
+				printf("                            ");
+			}
+		}
+	}
 	while ((liste->nb_suspects) > 1)
 	{
-		/* on indique à l'utilisateur les suspects restants */
-		affiche_liste_suspects(liste);
+		/* s'il l'a demandé l'utilisateur vera la liste
+		   des suspects restants ! */
+		if (v == true)
+			affiche_liste_suspects(liste);
 		/* on pose une question à l'utilisateur et on met à
 		   jour la liste de question à poser en meme temps */ 
-		questions_posees = questionner_joueur_et_maj(liste,questions_posees);
+		questions_posees = questionner_joueur_et_maj(liste,questions_posees,v);
 	}
-	if ((liste->nb_suspects) != 1)
-		printf("\n\nVous avez menti\n\n");
+	if ((liste->nb_suspects) != 1 )
+		trahison();
 	else if ((liste->tete->attributs) != cible)
-		printf("\n\nVous avez menti\n\n");
+		trahison();
 	else
-		printf("\n\nLa personne que l'IA a trouvée est : %s\n\n",(liste->tete)->nom);
+	{
+		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		printf("        ______________________________________________________\n");
+		printf("        |                                                    |\n");
+		printf("        |                                                    |\n");
+		printf("        |       !!!       SUSPECT F.O.U.N.D        !!!       |\n");
+		printf("        |                                                    |\n");
+		printf("                               \%s   \n",(liste->tete)->nom);
+		printf("        |                                                    |\n");
+		printf("        |                                                    |\n");
+		printf("        |____________________________________________________|\n");
+		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	}
 	/* on libère la mémoire demandée manuellement */
 	detruire_liste_suspects(&liste);
-        return 0;
+	return 0;
 }

@@ -67,5 +67,5 @@ void ensemble_afficher(const char *msg, ensemble_t e) {
 		
 	}
 	chaine[16]='\0';
-	printf("%s Binaire : %s | Decimal : %d \n",msg,chaine,res_dec);
+	printf("%s             Binaire : %s | Decimal : %d        ",msg,chaine,res_dec);
 }
