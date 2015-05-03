@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "ensemble.h"
 #define un 0b0000000000000001
 
