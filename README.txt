@@ -1,6 +1,13 @@
-Le compilateur retourne deux erreurs :
+UTILISATION :
+
+* Pour jouer : < ~$ make >
+  puis < ~$ ./bin/quiestce >
 
 
+REMARQUES :
+
+
+I - Le compilateur retourne deux erreurs :
 
 <    ================================================================================
 
@@ -41,12 +48,12 @@ on ne compte pas changer la valeur de l'entrée "nom" d'un suspect.
 ================================================================================    >
 
 
-
-
-Je rends donc le dossier dans l'état, malgré les warnings. Le programme
+II - Je rends donc le dossier dans l'état, malgré les warnings. Le programme
 remplit la fonction demandée :
 
 - > Interface de jeu de qui-est-ce
+(Pour jouer dans de bonnes conditions, il faudra avoir la liste des suspects à coté
+de soit !)
 - > Possibilité de savoir où en est l'I.A dans sa recherche,
 - > Retourner le résultat si le joueur ne ment pas, sinon lui dire qu'il ment et que
     mentir c'est mal !
